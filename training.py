@@ -5,17 +5,19 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 import numpy as np
+from load_jellyfish_data import load_train_test_from_np, ClassNumber_to_FishName
 
 
 # Model / data parameters
-num_classes = 10
-input_shape = (28, 28, 1)
+model_save_path = './mymodel/mymodel.keras'
+num_classes = int(len(ClassNumber_to_FishName))
+input_shape = (179, 179, 3)
 
 if __name__ == '__main__':
     print("TensorFlow version:", tf.__version__)
 
-    # Daten Aufbereitung
-    (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+    # Daten
+    (x_train, y_train), (x_test, y_test) = load_train_test_from_np()
     # (x_train, y_train), (x_test, y_test) = keras.datasets.fashion_mnist.load_data()
 
     # Scale images to the [0, 1] range
@@ -28,6 +30,7 @@ if __name__ == '__main__':
     print(x_train.shape[0], "train samples")
     print(x_test.shape[0], "test samples")
 
+    # exit()
     # convert class vectors to binary class matrices
     y_train = keras.utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.to_categorical(y_test, num_classes)
@@ -59,7 +62,7 @@ if __name__ == '__main__':
     # model.compile(loss="mean_squared_error", optimizer="adam", metrics=["accuracy"])
     laden = False  # True: vorher erstelltes Modell laden; False: neues Modell fitten
     if laden:
-        model = keras.models.load_model('mymodel')
+        model = keras.models.load_model(model_save_path)
     else:
         # https://keras.io/api/losses/probabilistic_losses/#categoricalcrossentropy-class
         history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
@@ -105,7 +108,7 @@ if __name__ == '__main__':
             # input("Bitte Enter drücken...")
             # plt.close()
 
-    model.save('./mymodel/mymodel.keras')
+    model.save(model_save_path)
     # https://www.tensorflow.org/guide/keras/save_and_serialize
 
     for layer in model.layers:
