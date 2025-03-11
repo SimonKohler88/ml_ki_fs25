@@ -44,6 +44,7 @@ def _load_walking(path):
             if ext == '.npy':  # only use numpy representations
                 file_path = os.path.join(directory, f)
                 raw_data = np.load(file_path)
+                # print(raw_data.shape)
                 x_data.append(raw_data)
                 y_data.append(FishName_to_ClassNumber[fish])
     y_data = np.array(y_data)

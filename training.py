@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from load_jellyfish_data import load_train_test_from_np, ClassNumber_to_FishName
 
-
 # Model / data parameters
 model_save_path = './mymodel/mymodel.keras'
 num_classes = int(len(ClassNumber_to_FishName))
@@ -23,14 +22,11 @@ if __name__ == '__main__':
     # Scale images to the [0, 1] range
     x_train = x_train.astype("float32") / 255
     x_test = x_test.astype("float32") / 255
-    # Make sure images have shape (28, 28, 1)
-    x_train = np.expand_dims(x_train, -1)
-    x_test = np.expand_dims(x_test, -1)
+
     print("x_train shape:", x_train.shape)
     print(x_train.shape[0], "train samples")
     print(x_test.shape[0], "test samples")
 
-    # exit()
     # convert class vectors to binary class matrices
     y_train = keras.utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.to_categorical(y_test, num_classes)
@@ -56,8 +52,8 @@ if __name__ == '__main__':
 
     model.summary()
 
-    batch_size = 128
-    epochs = 15
+    batch_size = 10
+    epochs = 1
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
     # model.compile(loss="mean_squared_error", optimizer="adam", metrics=["accuracy"])
     laden = False  # True: vorher erstelltes Modell laden; False: neues Modell fitten
@@ -97,7 +93,7 @@ if __name__ == '__main__':
     y_pred_idx = np.argmax(y_pred, axis=1)
     y_test_idx = np.argmax(y_test, axis=1)
     sum(y_pred_idx - y_test_idx != 0)
-    N = 1000  # x_test.shape[0]
+    N = x_test.shape[0]
     for k in range(N):
         if (y_test_idx[k] != y_pred_idx[k]):
             print("Fehler - korrekt: ", y_test_idx[k], ", vorhergesagt: ", y_pred_idx[k])
@@ -109,9 +105,11 @@ if __name__ == '__main__':
             # plt.close()
 
     model.save(model_save_path)
-    # https://www.tensorflow.org/guide/keras/save_and_serialize
 
-    for layer in model.layers:
-        weights = layer.get_weights()
-        print("Layer ", layer)
-        print(weights)
+    # too much data
+    # https://www.tensorflow.org/guide/keras/save_and_serialize
+    #
+    # for layer in model.layers:
+    #     weights = layer.get_weights()
+    #     print("Layer ", layer)
+    #     print(weights)
