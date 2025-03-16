@@ -1,0 +1,260 @@
+
+
+# 1
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(16, kernel_size=(3, 3), activation="sigmoid"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            # layers.Conv2D(128, kernel_size=(3, 3), activation="relu"),
+            # layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+   batch_size = 80
+    epochs = 16
+
+    Test loss: 2.2876479625701904
+Test accuracy: 0.23076923191547394
+
+#2
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+   batch_size = 80
+    epochs = 16
+Test loss: 1.251321792602539
+Test accuracy: 0.5384615659713745
+
+ #3
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+
+    Test loss: 1.138115644454956
+Test accuracy: 0.5128205418586731
+
+#4
+# Model definition
+    model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(128, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+
+    Test loss: 1.21834135055542
+Test accuracy: 0.5128205418586731
+
+#5
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(128, kernel_size=(4, 4), activation="sigmoid"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+Test loss: 1.7923498153686523
+Test accuracy: 0.12820513546466827
+
+#6
+   # Model definition
+    model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(16, kernel_size=(3, 3), activation="sigmoid"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(16, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(16, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+Test loss: 1.755392074584961
+Test accuracy: 0.25641027092933655
+
+#7
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(32, kernel_size=(4, 4), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(32, kernel_size=(4, 4), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(32, kernel_size=(4, 4), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+Test loss: 1.2436951398849487
+Test accuracy: 0.4615384638309479
+
+#8
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+Test loss: 1.03173828125
+Test accuracy: 0.5641025900840759
+
+#9
+Takes long time!! ca 15 min
+
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(100, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(100, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(100, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+
+Test loss: 1.0076452493667603
+Test accuracy: 0.6153846383094788
+
+#10
+takes a long time too
+
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(100, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(100, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+batch_size = 50
+epochs = 25
+
+Epoch 25/25
+17/17 ━━━━━━━━━━━━━━━━━━━━ 43s 3s/step - accuracy: 0.9840 - loss: 0.0706 - val_accuracy: 0.6444 - val_loss: 1.4439
+
+Test loss: 2.2270631790161133
+Test accuracy: 0.4615384638309479
+
+#11
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(64, kernel_size=(5, 5), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Conv2D(128, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+ batch_size = 50
+    epochs = 25
+
+Test loss: 2.2269439697265625
+Test accuracy: 0.4871794879436493
+
+#12
+   model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(128, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+
+ Test loss: 1.586517095565796
+Test accuracy: 0.5641025900840759
+
+#13
+   model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(100, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+
+Test loss: 1.0680441856384277
+Test accuracy: 0.6153846383094788
+
+#14
+model = keras.Sequential(
+        [
+            keras.Input(shape=input_shape),
+            layers.Conv2D(128, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(5, 5)),
+            layers.Conv2D(32, kernel_size=(4, 4), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
+            layers.Flatten(),
+            layers.Dropout(0.5),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
+Test loss: 1.083830714225769
+Test accuracy: 0.5897436141967773

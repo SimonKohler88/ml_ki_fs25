@@ -35,10 +35,10 @@ if __name__ == '__main__':
     model = keras.Sequential(
         [
             keras.Input(shape=input_shape),
-            layers.Conv2D(32, kernel_size=(3, 3), activation="relu"),
-            layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(64, kernel_size=(3, 3), activation="relu"),
-            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Conv2D(128, kernel_size=(3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(5, 5)),
+            layers.Conv2D(32, kernel_size=(4, 4), activation="relu"),
+            layers.MaxPooling2D(pool_size=(4, 4)),
             layers.Flatten(),
             layers.Dropout(0.5),
             layers.Dense(num_classes, activation="softmax"),
@@ -52,8 +52,8 @@ if __name__ == '__main__':
 
     model.summary()
 
-    batch_size = 10
-    epochs = 1
+    batch_size = 50
+    epochs = 25
     model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
     # model.compile(loss="mean_squared_error", optimizer="adam", metrics=["accuracy"])
     laden = False  # True: vorher erstelltes Modell laden; False: neues Modell fitten
@@ -97,10 +97,11 @@ if __name__ == '__main__':
     for k in range(N):
         if (y_test_idx[k] != y_pred_idx[k]):
             print("Fehler - korrekt: ", y_test_idx[k], ", vorhergesagt: ", y_pred_idx[k])
-            plt.figure()
-            plt.imshow(x_test[k], cmap=plt.get_cmap('gray'))
-            plt.title("Fehler - korrekt: " + str(y_test_idx[k]) + ", vorhergesagt: " + str(y_pred_idx[k]))
-            plt.show()
+            # plt.figure()
+            # plt.imshow(x_test[k], cmap=plt.get_cmap('gray'))
+            # plt.title("Fehler - korrekt: " + str(y_test_idx[k]) + ", vorhergesagt: " + str(y_pred_idx[k]))
+            # plt.show()
+
             # input("Bitte Enter drücken...")
             # plt.close()
 
