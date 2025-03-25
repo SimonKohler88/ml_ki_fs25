@@ -1,4 +1,4 @@
- #-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import tensorflow as tf
 import platform
@@ -12,21 +12,23 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 import matplotlib.pyplot as plt
 import numpy as np
-from load_jellyfish_data import load_train_test_from_np, ClassNumber_to_FishName
+from load_jellyfish_data import (load_train_test_from_np, ClassNumber_to_FishName,
+                                 load_all_jelly_and_test_and_valid_from_np)
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 # Model / data parameters
 model_save_path = './mymodel/mymodel.keras'
 num_classes = int(len(ClassNumber_to_FishName))
 input_shape = (179, 179, 3)
-batch_size = 20
+batch_size = 100
 epochs = 60
 
 if __name__ == '__main__':
     print("TensorFlow version:", tf.__version__)
 
     # Daten //validation hinzugefügt
-    (x_train, y_train), (x_test, y_test), (x_val, y_val) = load_train_test_from_np()
+    # (x_train, y_train), (x_test, y_test), (x_val, y_val) = load_train_test_from_np()
+    (x_train, y_train), (x_test, y_test), (x_val, y_val) = load_all_jelly_and_test_and_valid_from_np()
     # (x_train, y_train), (x_test, y_test) = keras.datasets.fashion_mnist.load_data()
 
     # Scale images to the [0, 1] range
@@ -54,7 +56,7 @@ if __name__ == '__main__':
         vertical_flip=True,  # Flip images vertically
         zoom_range=0.3,  # Small zooming (instead of 30%)
         shear_range=0.1,  # Small shear distortion (instead of 30%)
-       # channel_shift_range=0.1,
+        # channel_shift_range=0.1,
         fill_mode="nearest"
     )
 
@@ -75,7 +77,7 @@ if __name__ == '__main__':
             layers.MaxPooling2D(pool_size=(2, 2)),
 
             layers.Flatten(),
-            #layers.Dropout(0.3),
+            # layers.Dropout(0.3),
 
             # Dense Layers
             layers.Dense(128, activation="relu"),
@@ -115,15 +117,16 @@ if __name__ == '__main__':
         # https://keras.io/api/losses/probabilistic_losses/#categoricalcrossentropy-class
         # history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
         # Early Stopping hinzufügen
-        early_stopping = EarlyStopping(monitor='val_loss', patience=5, min_delta=0.001, restore_best_weights=True, verbose=1)
+        early_stopping = EarlyStopping(monitor='val_loss', patience=5, min_delta=0.001, restore_best_weights=True,
+                                       verbose=1)
 
         # Modelltraining mit Early Stopping
         train_generator = datagen.flow(x_train, y_train, batch_size=batch_size, shuffle=True)
         validation_generator = datagen.flow(x_test, y_test, batch_size=batch_size, shuffle=False)
 
-        #history1 = model.fit(train_generator, epochs=epochs,
-                           # validation_data=validation_generator,
-                            #callbacks=[early_stopping])
+        # history1 = model.fit(train_generator, epochs=epochs,
+        # validation_data=validation_generator,
+        # callbacks=[early_stopping])
 
         history = model.fit(
             train_generator,

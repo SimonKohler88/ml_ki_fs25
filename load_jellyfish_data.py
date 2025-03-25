@@ -25,14 +25,20 @@ ClassNumber_to_FishName = {
     5: 'Moon_jellyfish'
 }
 
-def _load_walking(path):
+
+def _load_walking(path, exclude_paths=None):
     # walks recursively trough given directory
     # returns a list [[data1, data2, ...],[foldername_data1, foldername_data2, ...]]
     # whereas data1, data2, ... are the loaded .npy files (numpy arrays)
     # must be previously be converted.
+    # exclude_paths: list with directories to exclude
     x_data = []
     y_data = []
     for directory, folder, files in os.walk(path):
+        if exclude_paths is not None:
+            if directory in exclude_paths:
+                continue
+
         if len(folder) > 0:
             continue
         # check which jellyfish
@@ -61,6 +67,18 @@ def load_train_test_from_np():
     path_val = os.path.join(_archive, 'Train_Test_Valid', 'valid')
 
     train_data = _load_walking(path_train)
+    test_data = _load_walking(path_test)
+    val_data = _load_walking(path_val)
+    return train_data, test_data, val_data
+
+
+def load_all_jelly_and_test_and_valid_from_np():
+    path_test = os.path.join(_archive, 'Train_Test_Valid', 'test')
+    path_train = os.path.join(_archive)
+    path_val = os.path.join(_archive, 'Train_Test_Valid', 'valid')
+
+    exclude_train_path = os.path.join(_archive, 'Train_Test_Valid')
+    train_data = _load_walking(path_train, exclude_paths=[exclude_train_path])
     test_data = _load_walking(path_test)
     val_data = _load_walking(path_val)
     return train_data, test_data, val_data
