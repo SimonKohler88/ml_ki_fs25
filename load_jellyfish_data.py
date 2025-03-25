@@ -58,14 +58,17 @@ def load_train_test_from_np():
     """
     path_test = os.path.join(_archive, 'Train_Test_Valid', 'test')
     path_train = os.path.join(_archive, 'Train_Test_Valid', 'Train')
+    path_val = os.path.join(_archive, 'Train_Test_Valid', 'valid')
 
     train_data = _load_walking(path_train)
     test_data = _load_walking(path_test)
-    return train_data, test_data
+    val_data = _load_walking(path_val)
+    return train_data, test_data, val_data
 
 
 if __name__ == '__main__':
-    train, test = load_train_test_from_np()
+    train, test, val = load_train_test_from_np()
 
     print(train[0].shape)
     print(test[0].shape)
+    print(val[0].shape)
