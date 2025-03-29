@@ -20,8 +20,8 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 model_save_path = './mymodel/mymodel.keras'
 num_classes = int(len(ClassNumber_to_FishName))
 input_shape = (179, 179, 3)
-batch_size = 100
-epochs = 60
+batch_size = 10000
+epochs = 300
 
 if __name__ == '__main__':
     print("TensorFlow version:", tf.__version__)
@@ -69,18 +69,23 @@ if __name__ == '__main__':
             keras.Input(shape=input_shape),
 
             # First Conv Block many filters, large kernel for shape and global contrast
-            layers.Conv2D(32, (3, 3), 1, padding="same", activation="relu", input_shape=input_shape),
+            layers.Conv2D(32, (5, 5), 1, padding="same", activation="relu", input_shape=input_shape),
             layers.MaxPooling2D(pool_size=(2, 2)),
 
             # Second Conv Block 3x3 kernel for finer structures such as tentacles
             layers.Conv2D(64, (3, 3), 1, padding="same", activation="relu"),
+            layers.MaxPooling2D(pool_size=(3, 3)),
+
+            # Second Conv Block 3x3 kernel for finer structures such as tentacles
+            layers.Conv2D(128, (3, 3), 1, padding="same", activation="relu"),
             layers.MaxPooling2D(pool_size=(2, 2)),
 
             layers.Flatten(),
             # layers.Dropout(0.3),
-
+            layers.Dropout(0.5),
             # Dense Layers
             layers.Dense(128, activation="relu"),
+            layers.Dense(64, activation="relu"),
             layers.Dense(6, activation="softmax")
         ]
     )
@@ -117,7 +122,7 @@ if __name__ == '__main__':
         # https://keras.io/api/losses/probabilistic_losses/#categoricalcrossentropy-class
         # history = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1)
         # Early Stopping hinzufügen
-        early_stopping = EarlyStopping(monitor='val_loss', patience=5, min_delta=0.001, restore_best_weights=True,
+        early_stopping = EarlyStopping(monitor='val_loss', patience=20, min_delta=0.001, restore_best_weights=True,
                                        verbose=1)
 
         # Modelltraining mit Early Stopping
